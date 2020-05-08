@@ -25,6 +25,6 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p $out
     cp -R $src/. $out;
     chmod +w -R $out
-    rm -rf $out/{Cargo.lock,target}
+    rm -rf $out/target
   '';
 }

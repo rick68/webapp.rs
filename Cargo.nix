@@ -4082,9 +4082,9 @@ rec {
       };
       "openssl-sys" = rec {
         crateName = "openssl-sys";
-        version = "0.9.55";
+        version = "0.9.56";
         edition = "2015";
-        sha256 = "1n55z6jqmwflp5ahnh9893i5b0v0f4gd3rgr4cijw3qah5yhj5vp";
+        sha256 = "0bmmw3w3s6vd2plb8hbdw5acdrv9rh7bbw4l0pahw017y6khj8zh";
         build = "build/main.rs";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -5076,9 +5076,9 @@ rec {
       };
       "security-framework" = rec {
         crateName = "security-framework";
-        version = "0.4.3";
+        version = "0.4.4";
         edition = "2015";
-        sha256 = "0806xg2ks76ww8kb666lh3gy0nlgmw6fv7av8b6lahb54n81ncrz";
+        sha256 = "0dg504y0ys27qksdcnn8qcyvrfhkjx8f5d6jvpm7i7yrsw18k034";
         authors = [
           "Steven Fackler <sfackler@gmail.com>"
           "Kornel <kornel@geekhood.net>"
