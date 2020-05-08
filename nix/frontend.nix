@@ -27,7 +27,7 @@
 , webappSrc ? callPackage ./source.nix { inherit webappName webappVersion; }
 , cargoSha256 ? "0mhc3d19hyhvkzzr0ax3hgy5s1cv8mk6h1h63cml32v84nabcdaj"
 , uikit ? callPackage ./uikit {}
-, frontendHash ? "62f09f0336d11ebd"
+, frontendHash ? "20ac7c7e1dd37e73"
 }:
 
 let
