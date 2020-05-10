@@ -3,8 +3,9 @@
 , stdenv ? pkgs.stdenv
 , lib ? stdenv.lib
 , runCommandLocal ? pkgs.runCommandLocal
+, writeShellScriptBin ? pkgs.writeShellScriptBin
+, writeShellScript ? pkgs.writeShellScript
 , callPackage ? pkgs.callPackage
-, coreutils ? pkgs.coreutils
 , rustPlatform ? pkgs.rustPlatform
 , git ? pkgs.git
 , cargo-web ? pkgs.cargo-web
@@ -27,7 +28,6 @@
 , webappSrc ? callPackage ./source.nix { inherit webappName webappVersion; }
 , cargoSha256 ? "11kl8rr6pq6zxqifvdyiyg2cjkgyrjqnjagidh9xmy51pnpv5zpj"
 , uikit ? callPackage ./uikit {}
-, frontendHash ? "20ac7c7e1dd37e73"
 }:
 
 let
@@ -53,6 +53,13 @@ let
     sourceRoot = null;
   };
 
+  fake-git-for-clone-uikit = writeShellScriptBin "git" ''
+    OUT_DIR=$5
+    mkdir -p $OUT_DIR
+    cp -a ${uikit}/. $OUT_DIR
+    chmod -R +w $OUT_DIR
+  '';
+
 in (import ../Cargo.nix {
   inherit pkgs lib stdenv;
   inherit buildRustCrate;
@@ -60,10 +67,10 @@ in (import ../Cargo.nix {
   rootFeatures = [ "default" ];
 }).workspaceMembers.webapp-frontend.build.overrideAttrs (attrs: {
   buildInputs = attrs.buildInputs ++ [
-    git cargo-web
+    fake-git-for-clone-uikit cargo-web
   ];
 
-  builder = pkgs.writeScript "frontend-builder.sh" ''
+  builder = writeShellScript "frontend-builder.sh" ''
     source $stdenv/setup
 
     export HOME=$(mktemp -d)
@@ -79,11 +86,6 @@ in (import ../Cargo.nix {
     config=${<nixpkgs/pkgs/build-support/rust/fetchcargo-default-config.toml>}
     substitute $config .cargo/config \
       --subst-var-by vendor "$(pwd)/$cargoDepsCopy"
-
-    OUT_DIR=$NIX_BUILD_TOP/target/wasm32-unknown-unknown/release/build/webapp-frontend-${frontendHash}/out/uikit
-    mkdir -p $OUT_DIR
-    cp -a ${uikit}/. $OUT_DIR
-    chmod -R +w $OUT_DIR
 
     cargo web deploy --release -o $out/static -p webapp-frontend --target wasm32-unknown-unknown
 
