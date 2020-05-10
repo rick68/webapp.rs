@@ -3,6 +3,8 @@
 , stdenv ? pkgs.stdenv
 , lib ? stdenv.lib
 , runCommandLocal ? pkgs.runCommandLocal
+, writeShellScriptBin ? pkgs.writeShellScriptBin
+, writeShellScript ? pkgs.writeShellScript
 , callPackage ? pkgs.callPackage
 , moz_overlay ? (import (builtins.fetchTarball
   "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz"))
