@@ -15,8 +15,6 @@
 , date ? null
 , channel ? "nightly"
 , rustChannel ? moz_nixpkgs.rustChannelOf { inherit date channel; }
-, rustc ? rustChannel.rust
-, cargo ? rustChannel.cargo
 , webappName ? builtins.readFile (runCommandLocal "project-name"
   { CARGO_TOML = builtins.readFile ../Cargo.toml; } ''
     echo "$CARGO_TOML" | sed -n -e 's/^name = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
@@ -39,10 +37,10 @@ let
 
   buildRustCrate = pkgs.buildRustCrate.override {
     defaultCrateOverrides = crateOverrides;
-    rustc = (rustc.override {
+    rustc = (rustChannel.rust.override {
       targets = [ "wasm32-unknown-unknown" ];
     });
-    inherit cargo;
+    cargo = rustChannel.cargo;
   };
 
   cargoDeps = rustPlatform.fetchcargo {
