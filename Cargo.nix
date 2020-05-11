@@ -2488,9 +2488,9 @@ rec {
       };
       "futures" = rec {
         crateName = "futures";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "105p5bwjf2dsclvi95g784n6b51az8ibdhjgmr2gn0imfpl9lcjw";
+        sha256 = "04zn97g8rvxlsqarpfamkiznkpr3jdb4lzfv6kfc1al7q9gbh18y";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -2534,6 +2534,13 @@ rec {
             features = [ "sink" ];
           }
         ];
+        devDependencies = [
+          {
+            name = "futures-executor";
+            packageId = "futures-executor";
+            features = [ "thread-pool" ];
+          }
+        ];
         features = {
           "alloc" = [ "futures-core/alloc" "futures-task/alloc" "futures-sink/alloc" "futures-channel/alloc" "futures-util/alloc" ];
           "async-await" = [ "futures-util/async-await" "futures-util/async-await-macro" ];
@@ -2547,14 +2554,15 @@ rec {
           "std" = [ "alloc" "futures-core/std" "futures-task/std" "futures-io/std" "futures-sink/std" "futures-util/std" "futures-util/io" "futures-util/channel" ];
           "thread-pool" = [ "executor" "futures-executor/thread-pool" ];
           "unstable" = [ "futures-core/unstable" "futures-task/unstable" "futures-channel/unstable" "futures-io/unstable" "futures-util/unstable" ];
+          "write-all-vectored" = [ "futures-util/write-all-vectored" ];
         };
         resolvedDefaultFeatures = [ "alloc" "async-await" "default" "executor" "futures-executor" "std" ];
       };
       "futures-channel" = rec {
         crateName = "futures-channel";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "1a7iq7m4ggq2njrm7h1x2v2gxzxkd2160awk0fwrrpcfrq27vizh";
+        sha256 = "1mb756zxpgrsr0lxkgl358jlpyrwi0i68pnrasj6pjlcq9sasrpk";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -2583,9 +2591,9 @@ rec {
       };
       "futures-core" = rec {
         crateName = "futures-core";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "0jj6mjvjbvv36r6w86lmjkh62mwndz901nsq4fwqjpl2d7vr4mgj";
+        sha256 = "16d35ic4b4dkv1gy39cvy2v4391b9014hrxd6vwp3nfm1zwzzxar";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -2597,9 +2605,9 @@ rec {
       };
       "futures-executor" = rec {
         crateName = "futures-executor";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "1fj1jw8g7l5v1sf7lh0w0smq596vmxaxzklh98l3fnxipkhz6x7n";
+        sha256 = "05732bhf9q8sqf9qd8px16rfkx9cn08nn05rpqx3s5g1if4bpmhh";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -2629,9 +2637,9 @@ rec {
       };
       "futures-io" = rec {
         crateName = "futures-io";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "1ihd1429kyfncxpc4mvina1hbppywfqzql6zrnjcflk1m6d9af56";
+        sha256 = "128pnpcaqj9sxr1d0scy51yfk2ggvqp6szlm2jf8d3is04mi89yy";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -2642,9 +2650,9 @@ rec {
       };
       "futures-macro" = rec {
         crateName = "futures-macro";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "19r3akc8y0br6jbx0lh1cfq07n8f23g7qfaag4m59xz17nm82l4s";
+        sha256 = "0f8d4kmdxx0h7nca90zdpnbk429w6d3w8dw2hxrm9ar88c5a7dfh";
         procMacro = true;
         authors = [
           "Taylor Cramer <cramertj@google.com>"
@@ -2673,9 +2681,9 @@ rec {
       };
       "futures-sink" = rec {
         crateName = "futures-sink";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "19n88jlh8cwam4gqzj4vj9g130vg9ir0m1bv11dxj5619cdq4ril";
+        sha256 = "1k4azaq6x7g9kmpvc91vx5w541y4p340rkl5bnhcfd5p7j4k481z";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -2687,23 +2695,32 @@ rec {
       };
       "futures-task" = rec {
         crateName = "futures-task";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "09ss6zg7w36s3y2715bnvfrnwr3b8vnklmxag00wvkgn7kjk82kv";
+        sha256 = "09m647nghwsg46ckys2846jfga6fbdwgfc08mfqij87215gnpdmx";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
+        dependencies = [
+          {
+            name = "once_cell";
+            packageId = "once_cell";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "std" ];
+          }
+        ];
         features = {
           "default" = [ "std" ];
-          "std" = [ "alloc" ];
+          "std" = [ "alloc" "once_cell" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "std" ];
+        resolvedDefaultFeatures = [ "alloc" "once_cell" "std" ];
       };
       "futures-util" = rec {
         crateName = "futures-util";
-        version = "0.3.4";
+        version = "0.3.5";
         edition = "2018";
-        sha256 = "1i84h30q2q93y4l4bk2g22mp96aws02a0k9qy3nnnc34bpr6qxi2";
+        sha256 = "1iijrqcamgll0h0r6ww9mh3ln4292c1wghw28h41lw4by17mfr47";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
         ];
@@ -2750,6 +2767,10 @@ rec {
             optional = true;
           }
           {
+            name = "pin-project";
+            packageId = "pin-project";
+          }
+          {
             name = "pin-utils";
             packageId = "pin-utils";
           }
@@ -2782,6 +2803,7 @@ rec {
           "sink" = [ "futures-sink" ];
           "std" = [ "alloc" "futures-core/std" "futures-task/std" "slab" ];
           "unstable" = [ "futures-core/unstable" "futures-task/unstable" ];
+          "write-all-vectored" = [ "io" ];
         };
         resolvedDefaultFeatures = [ "alloc" "async-await" "async-await-macro" "channel" "default" "futures-channel" "futures-io" "futures-macro" "futures-sink" "io" "memchr" "proc-macro-hack" "proc-macro-nested" "sink" "slab" "std" ];
       };
@@ -4225,9 +4247,9 @@ rec {
       };
       "pin-project" = rec {
         crateName = "pin-project";
-        version = "0.4.13";
+        version = "0.4.16";
         edition = "2018";
-        sha256 = "0parsaiim2nis1cq50d6rsq0w8lcfsyln8y7k2agjhmvnnzvzhw2";
+        sha256 = "1lb32r1nhzgxw5k8zcizz6jvg021z6dfs3kdm76jqll99v5q1m41";
         authors = [
           "Taiki Endo <te316e89@gmail.com>"
         ];
@@ -4242,9 +4264,9 @@ rec {
       };
       "pin-project-internal" = rec {
         crateName = "pin-project-internal";
-        version = "0.4.13";
+        version = "0.4.16";
         edition = "2018";
-        sha256 = "0qwgs8xhlc5x5vngh2hqmg6s66nzp22v09jm04n5c67vvi4n9gyc";
+        sha256 = "1srgwycdsxapmdba5np3rvnw2cfy33w5sjxihnv1kjzw3vqrcad8";
         procMacro = true;
         authors = [
           "Taiki Endo <te316e89@gmail.com>"
@@ -5026,9 +5048,9 @@ rec {
       };
       "schannel" = rec {
         crateName = "schannel";
-        version = "0.1.18";
+        version = "0.1.19";
         edition = "2015";
-        sha256 = "06fdagm55j6g26bv4jsffk1ak7v5wbyyfz9dxqhi735x62qjb703";
+        sha256 = "0xdwr3clrylywpv2r5hw7mrxmsf7ljagwiymw2z60ki3kihbl1cg";
         authors = [
           "Steven Fackler <sfackler@gmail.com>"
           "Steffen Butzer <steffen.butzer@outlook.com>"
@@ -5171,9 +5193,9 @@ rec {
       };
       "serde" = rec {
         crateName = "serde";
-        version = "1.0.106";
+        version = "1.0.110";
         edition = "2015";
-        sha256 = "169kg1px2k0hlxziiikdwy42wnrs2gjbvsv7yxygcwi08736mprn";
+        sha256 = "0k10135zxqc67y6dhq5bc1vq3viy5aby8r4rp9pba5jd8q4b7rwr";
         authors = [
           "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
           "David Tolnay <dtolnay@gmail.com>"
@@ -5199,9 +5221,9 @@ rec {
       };
       "serde_derive" = rec {
         crateName = "serde_derive";
-        version = "1.0.106";
+        version = "1.0.110";
         edition = "2015";
-        sha256 = "0v7a2rkpx9hi70pv2wr2h0h07rgmr7gi37v0s4dn5f2gpwx9wm4y";
+        sha256 = "110rfxlcli1dm9bif7f7pqavkiq0m93qa56arazx6hlsz9mvz3w1";
         procMacro = true;
         authors = [
           "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
@@ -5228,9 +5250,9 @@ rec {
       };
       "serde_json" = rec {
         crateName = "serde_json";
-        version = "1.0.52";
+        version = "1.0.53";
         edition = "2018";
-        sha256 = "1pcyg6xhca5giyh9hnxph201bly1vrgh4ygbk8kklyjvs274r2d7";
+        sha256 = "18nfckwa4zqaz27l7di0jwgw5bf6a3wjhx8snfli34hqbgklhfcr";
         authors = [
           "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
           "David Tolnay <dtolnay@gmail.com>"
