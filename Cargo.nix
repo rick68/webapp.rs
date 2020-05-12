@@ -1852,9 +1852,9 @@ rec {
       };
       "clap" = rec {
         crateName = "clap";
-        version = "2.33.0";
+        version = "2.33.1";
         edition = "2015";
-        sha256 = "1nf6ld3bims1n5vfzhkvcb55pdzh04bbhzf8nil5vvw05nxzarsh";
+        sha256 = "0a91g4m6rcqpf6gzxh43cj6mnj9g8ahpr634baim6kcmgza81ymx";
         authors = [
           "Kevin K. <kbknapp@gmail.com>"
         ];
@@ -5609,9 +5609,9 @@ rec {
       };
       "syn" = rec {
         crateName = "syn";
-        version = "1.0.19";
+        version = "1.0.20";
         edition = "2018";
-        sha256 = "1rssizq02w27kc1jy6051w0c1kjy8s435bhl4bk6xckvd5qamrg8";
+        sha256 = "07d9xjlq2yqs4ajsyh15x42wcxvb1kxcm7y56gjgmcb0fcrmw6yx";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -5810,9 +5810,9 @@ rec {
       };
       "threadpool" = rec {
         crateName = "threadpool";
-        version = "1.8.0";
+        version = "1.8.1";
         edition = "2015";
-        sha256 = "0rkx0wzaw9v958ckiliwl42m2j7c59j3r5vdj6kda5bw8j2f3np8";
+        sha256 = "1amgfyzvynbm8pacniivzq9r0fh3chhs7kijic81j76l6c5ycl6h";
         authors = [
           "The Rust Project Developers"
           "Corey Farwell <coreyf@rwell.org>"
