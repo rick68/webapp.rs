@@ -24,7 +24,7 @@
     echo "$CARGO_TOML" | sed -n -e 's/^version = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
   '')
 , webappSrc ? callPackage ./source.nix { inherit webappName webappVersion; }
-, cargoSha256 ? "16hlpg3x3kr3bhi5nmahw2nz22ccqkml5xlswfspcvwgh1wyv5hc"
+, cargoSha256 ? "0krhfasaqjh5ryllry6jgdb72nzqvy6f29fmyf14l9a80jnki4yp"
 , uikit ? callPackage ./uikit {}
 }:
 
