@@ -22,11 +22,7 @@
 }:
 
 let
-  crateOverrides = pkgs.defaultCrateOverrides // {
-    sass-sys = attrs: {
-      buildInputs = with pkgs; [ git ];
-    };
-  };
+  crateOverrides = pkgs.defaultCrateOverrides;
 
   buildRustCrate = pkgs.buildRustCrate.override {
     defaultCrateOverrides = crateOverrides;
