@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
   phases = "installPhase";
   installPhase = ''
     mkdir -p $out
-    cp -R $src/. $out;
+    cp -R $src/. $out
     chmod +w -R $out
     rm -rf $out/target
   '';
