@@ -3,12 +3,7 @@
 , stdenv ? pkgs.stdenv
 , lib ? stdenv.lib
 , runCommandLocal ? pkgs.runCommandLocal
-, writeShellScriptBin ? pkgs.writeShellScriptBin
-, writeShellScript ? pkgs.writeShellScript
 , callPackage ? pkgs.callPackage
-, rustPlatform ? pkgs.rustPlatform
-, git ? pkgs.git
-, cargo-web ? pkgs.cargo-web
 , moz_overlay ? (import (builtins.fetchTarball
   "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz"))
 , moz_nixpkgs ? (import nixpkgs { overlays = [ moz_overlay ]; })
@@ -24,7 +19,7 @@
     echo "$CARGO_TOML" | sed -n -e 's/^version = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
   '')
 , webappSrc ? callPackage ./source.nix { inherit webappName webappVersion; }
-, cargoSha256 ? "0krhfasaqjh5ryllry6jgdb72nzqvy6f29fmyf14l9a80jnki4yp"
+, cargoSha256 ? "0iq27pwggxlrlpahdqhkz3nslk85nxhzfqi0057fv2dbzdpl7b9i"
 , uikit ? callPackage ./uikit {}
 }:
 
@@ -43,7 +38,7 @@ let
     cargo = rustChannel.cargo;
   };
 
-  cargoDeps = rustPlatform.fetchcargo {
+  cargoDeps = pkgs.rustPlatform.fetchcargo {
     name = webappName;
     version = webappVersion;
     src = webappSrc;
@@ -51,7 +46,7 @@ let
     sourceRoot = null;
   };
 
-  fake-git-for-clone-uikit = writeShellScriptBin "git" ''
+  fake-git-for-clone-uikit = pkgs.writeShellScriptBin "git" ''
     OUT_DIR=$5
     mkdir -p $OUT_DIR
     cp -a ${uikit}/. $OUT_DIR
@@ -64,11 +59,10 @@ in (import ../Cargo.nix {
   defaultCrateOverrides = crateOverrides;
   rootFeatures = [ "default" ];
 }).workspaceMembers.webapp-frontend.build.overrideAttrs (attrs: {
-  buildInputs = attrs.buildInputs ++ [
-    fake-git-for-clone-uikit cargo-web
-  ];
+  buildInputs = attrs.buildInputs ++ [ fake-git-for-clone-uikit ]
+    ++ (with pkgs; [ cargo-web ]);
 
-  builder = writeShellScript "frontend-builder.sh" ''
+  builder = pkgs.writeShellScript "frontend-builder.sh" ''
     source $stdenv/setup
 
     export HOME=$(mktemp -d)
