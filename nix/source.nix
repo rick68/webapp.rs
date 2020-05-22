@@ -14,7 +14,7 @@
   '')
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   name = "${webappName}-${webappVersion}-source";
   version = webappVersion;
   src = cleanSource ./..;
