@@ -1236,9 +1236,9 @@ rec {
       };
       "actix-web-codegen" = rec {
         crateName = "actix-web-codegen";
-        version = "0.2.1";
+        version = "0.2.2";
         edition = "2018";
-        sha256 = "0mzh74nakkmrmhs4asn9wwz93waa2r0caa3ybxw6jd0888ckf02g";
+        sha256 = "0rjpzwsm51nfjqsz269jwbkiic9d454bnsk9ng882wp0rdsz86x7";
         procMacro = true;
         authors = [
           "Nikolay Kim <fafhrd91@gmail.com>"
@@ -3962,7 +3962,7 @@ rec {
         buildDependencies = [
           {
             name = "version_check";
-            packageId = "version_check 0.9.1";
+            packageId = "version_check 0.9.2";
           }
         ];
         features = {
@@ -4158,9 +4158,9 @@ rec {
       };
       "openssl-sys" = rec {
         crateName = "openssl-sys";
-        version = "0.9.56";
+        version = "0.9.57";
         edition = "2015";
-        sha256 = "0bmmw3w3s6vd2plb8hbdw5acdrv9rh7bbw4l0pahw017y6khj8zh";
+        sha256 = "142r772cxxbwyg8z34gas47xzhwsp055qxb39wfhgb7q1bwgw43l";
         build = "build/main.rs";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
@@ -4405,9 +4405,9 @@ rec {
       };
       "proc-macro-hack" = rec {
         crateName = "proc-macro-hack";
-        version = "0.5.15";
+        version = "0.5.16";
         edition = "2018";
-        sha256 = "0qqbfm1byabjkph56r2rlvv4cliz4960j6hav3ljazyjqvkryr8d";
+        sha256 = "1r657v7d9vh1ivrvq65rvg9gjb29dpa0l3zg2fgrn5j8znz5c13y";
         procMacro = true;
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
@@ -4426,9 +4426,9 @@ rec {
       };
       "proc-macro2" = rec {
         crateName = "proc-macro2";
-        version = "1.0.13";
+        version = "1.0.17";
         edition = "2018";
-        sha256 = "0fgncyhqyg5lpsj972kpfi7xcr3q8y9lirqwkiyf6a3b7bjzzxak";
+        sha256 = "0081b9kbpm1fraafv6cpq8mja306w07hsmpzrg4s8jcc8lpd20hm";
         authors = [
           "Alex Crichton <alex@alexcrichton.com>"
           "David Tolnay <dtolnay@gmail.com>"
@@ -5070,9 +5070,9 @@ rec {
       };
       "sass-sys" = rec {
         crateName = "sass-sys";
-        version = "0.4.19";
+        version = "0.4.21";
         edition = "2015";
-        sha256 = "0v926q8lasf4mi712xaqknr40fizjgacxmpmdp3fd7x1iwy4sifx";
+        sha256 = "0229h21j22x45nqzjjdz20z1wi3cspf9904lp6cjmmmqs07sry8d";
         authors = [
           "Marius Seritan <github@seritan.net>"
           "Vincent Prouillet <prouillet.vincent@gmail.com>"
@@ -5663,9 +5663,9 @@ rec {
       };
       "syn" = rec {
         crateName = "syn";
-        version = "1.0.23";
+        version = "1.0.24";
         edition = "2018";
-        sha256 = "0sbj8jjy43rv9fg3c8ijjfc3p26z4jrgxwhk58qaaj4ycj9g3dcm";
+        sha256 = "0sm03j27jmjyyr7zdnc61wb0xldnjldxybrrw16ndfsyh6rcayzq";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -5808,9 +5808,9 @@ rec {
       };
       "thiserror" = rec {
         crateName = "thiserror";
-        version = "1.0.18";
+        version = "1.0.19";
         edition = "2018";
-        sha256 = "19wc9vjp7xb38cbrwvs6c5crakd6bag5n2w5fy2gdd2hd4fqjxjr";
+        sha256 = "0i63pw7qanxhyajv0nh8x5kgifq47f115yi9s5fmj05dcmlr4gxi";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -5824,9 +5824,9 @@ rec {
       };
       "thiserror-impl" = rec {
         crateName = "thiserror-impl";
-        version = "1.0.18";
+        version = "1.0.19";
         edition = "2018";
-        sha256 = "0gapi5nz91f0qs640j866ljvld1knyyx7gfg5vi2rkb9rp8xp0db";
+        sha256 = "0ygllwcnbglqx156fv04n5sa0c2hbfk6aqlhizhwv61gdh484dc9";
         procMacro = true;
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
@@ -6360,7 +6360,7 @@ rec {
         buildDependencies = [
           {
             name = "version_check";
-            packageId = "version_check 0.9.1";
+            packageId = "version_check 0.9.2";
           }
         ];
         features = {
@@ -6629,11 +6629,11 @@ rec {
         ];
         
       };
-      "version_check 0.9.1" = rec {
+      "version_check 0.9.2" = rec {
         crateName = "version_check";
-        version = "0.9.1";
+        version = "0.9.2";
         edition = "2015";
-        sha256 = "1kikqlnggii1rvnxrbls55sc46lxvinz5k3giscgncjj4p87b1q7";
+        sha256 = "1vbaqdf802qinsq8q20w8w0qn2pv0rkq5p73ijcblrwxcvjp5adm";
         authors = [
           "Sergio Benitez <sb@sergio.bz>"
         ];
