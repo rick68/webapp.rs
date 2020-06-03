@@ -32,9 +32,7 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkgs.makeWrapper ];
 
-  builder = pkgs.writeScript "${webappName}-builder" ''
-    source $stdenv/setup
-
+  buildCommand = ''
     mkdir $out
     cp -r {${frontend},${backend}}/* $out
     chmod -R +w $out

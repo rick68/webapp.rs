@@ -62,9 +62,7 @@ in (import ../Cargo.nix {
   buildInputs = attrs.buildInputs ++ [ fake-git-for-clone-uikit ]
     ++ (with pkgs; [ cargo-web ]);
 
-  builder = pkgs.writeShellScript "frontend-builder.sh" ''
-    source $stdenv/setup
-
+  buildCommand = ''
     export HOME=$(mktemp -d)
 
     cp -a ${webappSrc}/. $NIX_BUILD_TOP
