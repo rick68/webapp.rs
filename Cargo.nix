@@ -1428,9 +1428,9 @@ rec {
       };
       "async-trait" = rec {
         crateName = "async-trait";
-        version = "0.1.31";
+        version = "0.1.33";
         edition = "2018";
-        sha256 = "0fwzxxmz3xhis4wsla0a6ylrccnj53wb4cjdsal6xhw5a0cz7i16";
+        sha256 = "1xqbvr6p85ph322rcf9dv6xm1qqw0cm3gbk0i0bzn91j3881674g";
         procMacro = true;
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
@@ -1757,9 +1757,9 @@ rec {
       };
       "bumpalo" = rec {
         crateName = "bumpalo";
-        version = "3.3.0";
+        version = "3.4.0";
         edition = "2018";
-        sha256 = "1xkqmd4id9qxw4n43chg1im0ynzxy2jx3lanb9w1yjp27v9g2mjk";
+        sha256 = "082qig1vxlklb9qwkg3j4hpfxb4b5blm59ln21njfc2p01zhi31f";
         authors = [
           "Nick Fitzgerald <fitzgen@gmail.com>"
         ];
@@ -1960,9 +1960,9 @@ rec {
       };
       "copyless" = rec {
         crateName = "copyless";
-        version = "0.1.4";
+        version = "0.1.5";
         edition = "2018";
-        sha256 = "09s1fagd14fqch3xq9ijschay014la2i8hqfxw2rr95jkxncbybg";
+        sha256 = "0dmmxsq3m0i6g9s2kj96n777qhmm7vjgv4r7agc2v6w6bl7rdpx2";
         authors = [
           "Dzmitry Malyshau <kvarkus@gmail.com>"
         ];
@@ -3289,9 +3289,9 @@ rec {
       };
       "indexmap" = rec {
         crateName = "indexmap";
-        version = "1.3.2";
+        version = "1.4.0";
         edition = "2015";
-        sha256 = "14i2gmq9pwaafvlxmsc12j6539hjgqk4j4jz40fz763vbcn08vq7";
+        sha256 = "1ziabh0lc4wwahv3qgv6aqckyydcrczpagpfp770jn5m2fqv5663";
         authors = [
           "bluss"
           "Josh Stone <cuviper@gmail.com>"
