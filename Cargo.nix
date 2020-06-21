@@ -1295,9 +1295,9 @@ rec {
       };
       "addr2line" = rec {
         crateName = "addr2line";
-        version = "0.12.1";
+        version = "0.12.2";
         edition = "2015";
-        sha256 = "0hq5gi2hj1mdm6yjy0a9w8525xyp194p4zn9wxhkr16wvawhd654";
+        sha256 = "171rpm7rzanzv6bzifs5q1hbfrk75rryh9s68f0f8xpl29cphbb0";
         authors = [
           "Nick Fitzgerald <fitzgen@gmail.com>"
           "Philip Craig <philipjcraig@gmail.com>"
@@ -1424,9 +1424,9 @@ rec {
       };
       "async-trait" = rec {
         crateName = "async-trait";
-        version = "0.1.35";
+        version = "0.1.36";
         edition = "2018";
-        sha256 = "1y7k11i9mkzzp11i0idp833s8g5mrkpyjrijdpb7z95j9a0mvjw9";
+        sha256 = "14pbhl1psi81851in004fh3ccdzy4ar12ykbwar31kpxxymy6rd2";
         procMacro = true;
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
@@ -1783,12 +1783,19 @@ rec {
       };
       "bytes" = rec {
         crateName = "bytes";
-        version = "0.5.4";
+        version = "0.5.5";
         edition = "2018";
-        sha256 = "1q9r7si1l8vndg4n2ny2nv833ghp5vyqzk5indb9rmhd5ibaq2hk";
+        sha256 = "0fr1kksxb6xyvm8daqygizv61z4c3rx2sjy3wcb0hzdrzcvg130i";
         authors = [
           "Carl Lerche <me@carllerche.com>"
           "Sean McArthur <sean@seanmonstar.com>"
+        ];
+        dependencies = [
+          {
+            name = "loom";
+            packageId = "loom";
+            target = { target, features }: target."loom";
+          }
         ];
         features = {
           "default" = [ "std" ];
@@ -2862,6 +2869,43 @@ rec {
         ];
         
       };
+      "generator" = rec {
+        crateName = "generator";
+        version = "0.6.21";
+        edition = "2018";
+        sha256 = "0s2wvx0g8n4mm074zqzvdf8lw60ybcja79y8zic14ll1pcbjzmxd";
+        authors = [
+          "Xudong Huang <huangxu008@hotmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "libc";
+            packageId = "libc";
+            target = { target, features }: target."unix";
+          }
+          {
+            name = "log";
+            packageId = "log";
+          }
+          {
+            name = "winapi";
+            packageId = "winapi 0.3.8";
+            target = { target, features }: target."windows";
+            features = [ "memoryapi" "sysinfoapi" ];
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "cc";
+            packageId = "cc";
+          }
+          {
+            name = "rustc_version";
+            packageId = "rustc_version";
+          }
+        ];
+        
+      };
       "getrandom" = rec {
         crateName = "getrandom";
         version = "0.1.14";
@@ -3577,6 +3621,34 @@ rec {
           "kv_unstable_sval" = [ "kv_unstable" "sval/fmt" ];
         };
         resolvedDefaultFeatures = [ "std" ];
+      };
+      "loom" = rec {
+        crateName = "loom";
+        version = "0.3.4";
+        edition = "2018";
+        sha256 = "1drh4glgxvjmygqgvb6lx7kl1xfdal9w99dvkbr1s7k1axc7gk2f";
+        authors = [
+          "Carl Lerche <me@carllerche.com>"
+        ];
+        dependencies = [
+          {
+            name = "cfg-if";
+            packageId = "cfg-if";
+          }
+          {
+            name = "generator";
+            packageId = "generator";
+          }
+          {
+            name = "scoped-tls";
+            packageId = "scoped-tls";
+          }
+        ];
+        features = {
+          "checkpoint" = [ "serde" "serde_json" ];
+          "futures" = [ "futures-util" ];
+        };
+        resolvedDefaultFeatures = [ "default" ];
       };
       "lru-cache" = rec {
         crateName = "lru-cache";
@@ -4943,9 +5015,9 @@ rec {
       };
       "ring" = rec {
         crateName = "ring";
-        version = "0.16.14";
+        version = "0.16.15";
         edition = "2018";
-        sha256 = "00wnw05snf12nxgkr5jq3ajapz81hmhsz809z042h9qj9zxgxcq6";
+        sha256 = "1r1l7qqk552vc19glzr8ng4gw4mzi8xpi98vz87c7fw5ijwxcb4m";
         authors = [
           "Brian Smith <brian@briansmith.org>"
         ];
@@ -5143,6 +5215,17 @@ rec {
         ];
         
       };
+      "scoped-tls" = rec {
+        crateName = "scoped-tls";
+        version = "0.1.2";
+        edition = "2015";
+        sha256 = "0a2bn9d2mb07c6l16sadijy4p540g498zddfxyiq4rsqpwrglbrk";
+        authors = [
+          "Alex Crichton <alex@alexcrichton.com>"
+        ];
+        features = {
+        };
+      };
       "scopeguard" = rec {
         crateName = "scopeguard";
         version = "1.1.0";
@@ -5252,9 +5335,9 @@ rec {
       };
       "serde" = rec {
         crateName = "serde";
-        version = "1.0.112";
+        version = "1.0.113";
         edition = "2015";
-        sha256 = "0hy25vll5l297k5ia2d4bc0jdx8dkgcw7lfic9cqxzpas5raqskk";
+        sha256 = "0smc5pj00nci5g9a9hrz9w7rs7f5cir7gvsqf54pj74qc62cfdb1";
         authors = [
           "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
           "David Tolnay <dtolnay@gmail.com>"
@@ -5280,9 +5363,9 @@ rec {
       };
       "serde_derive" = rec {
         crateName = "serde_derive";
-        version = "1.0.112";
+        version = "1.0.113";
         edition = "2015";
-        sha256 = "0mrz1720qfgnc3v3739wadmy1vy9x741lffrmzbd7h1a477460xz";
+        sha256 = "0cdf4r6bwxw6cwg2fj93kwd7mypwhjfzxzyw3i4cnm09gnhymick";
         procMacro = true;
         authors = [
           "Erick Tryzelaar <erick.tryzelaar@gmail.com>"
@@ -5668,9 +5751,9 @@ rec {
       };
       "syn" = rec {
         crateName = "syn";
-        version = "1.0.31";
+        version = "1.0.32";
         edition = "2018";
-        sha256 = "1dm8vd1kn2f7i7nprwc8xwhys5jhnf8szm15bicbfrbkybylqc5m";
+        sha256 = "003dy6famhzs5smn4hw8cdzipl8k9d56q6z8cg8if731903m5559";
         authors = [
           "David Tolnay <dtolnay@gmail.com>"
         ];
@@ -7581,7 +7664,7 @@ rec {
         features = {
           "debug" = [ "impl-debug" ];
         };
-        resolvedDefaultFeatures = [ "consoleapi" "errhandlingapi" "fileapi" "handleapi" "impl-debug" "impl-default" "lmcons" "minschannel" "minwinbase" "minwindef" "ntdef" "ntsecapi" "ntstatus" "processenv" "profileapi" "schannel" "securitybaseapi" "sspi" "std" "sysinfoapi" "timezoneapi" "winbase" "wincon" "wincrypt" "winerror" "winnt" "winreg" "winsock2" "ws2def" "ws2ipdef" "ws2tcpip" "wtypesbase" ];
+        resolvedDefaultFeatures = [ "consoleapi" "errhandlingapi" "fileapi" "handleapi" "impl-debug" "impl-default" "lmcons" "memoryapi" "minschannel" "minwinbase" "minwindef" "ntdef" "ntsecapi" "ntstatus" "processenv" "profileapi" "schannel" "securitybaseapi" "sspi" "std" "sysinfoapi" "timezoneapi" "winbase" "wincon" "wincrypt" "winerror" "winnt" "winreg" "winsock2" "ws2def" "ws2ipdef" "ws2tcpip" "wtypesbase" ];
       };
       "winapi-build" = rec {
         crateName = "winapi-build";
