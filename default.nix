@@ -25,18 +25,30 @@ let
   frontend = import ./nix/frontend.nix args;
   backend = import ./nix/backend.nix args;
 
+  rollup = callPackage ./nix/rollup {};
+
 in stdenv.mkDerivation {
   name = "${webappName}-${webappVersion}";
   version = webappVersion;
   src = webappSrc;
 
-  nativeBuildInputs = [ pkgs.makeWrapper ];
+  nativeBuildInputs = [ rollup ] ++ (with pkgs; [ binaryen makeWrapper ]);
 
   buildCommand = ''
     mkdir $out
-    cp -r {${frontend},${backend}}/* $out
+    cp -r ${backend}/* $out
     chmod -R +w $out
 
     wrapProgram $out/bin/backend --run "cd $out"
+
+    cp -R ${frontend}/static $out
+    chmod -R +w $out/static
+
+    name=${lib.replaceStrings [ "-" ] [ "_" ] frontend.pname}
+
+    mkdir -p $out/static/pkg
+    wasm-opt -Oz -o $out/static/pkg/''${name}_bg.wasm ${frontend}/pkg/''${name}_bg.wasm
+    cp -R {${frontend}/pkg,$src/frontend/main.js} .
+    rollup ./main.js --format iife --file $out/static/pkg/$name.js
   '';
 }

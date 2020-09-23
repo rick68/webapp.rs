@@ -49,3 +49,6 @@ thiserror = "1.0.21"
 url = "2.1.1"
 uuid = { version = "0.8.1", features = ["v4"] }
 webapp = { version = "1.0.0", path = "..", features = ["backend"] }
+
+[profile.release]
+lto = true

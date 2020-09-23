@@ -1,7 +1,5 @@
 { nixpkgs ? <nixpkgs>
 , pkgs ? (import nixpkgs {})
-, stdenv ? pkgs.stdenv
-, lib ? stdenv.lib
 , runCommandLocal ? pkgs.runCommandLocal
 , callPackage ? pkgs.callPackage
 , moz_overlay ? (import (builtins.fetchTarball
@@ -10,34 +8,33 @@
 , date ? null
 , channel ? "nightly"
 , rustChannel ? moz_nixpkgs.rustChannelOf { inherit date channel; }
-, webappName ? builtins.readFile (runCommandLocal "project-name"
-  { CARGO_TOML = builtins.readFile ../Cargo.toml; } ''
-    echo "$CARGO_TOML" | sed -n -e 's/^name = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
-  '')
-, webappVersion ? builtins.readFile (runCommandLocal "project-version"
-  { CARGO_TOML = builtins.readFile ../Cargo.toml; } ''
-    echo "$CARGO_TOML" | sed -n -e 's/^version = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
-  '')
-, webappSrc ? callPackage ./source.nix { inherit webappName webappVersion; }
-}:
-
-let
-  crateOverrides = pkgs.defaultCrateOverrides;
-
-  buildRustCrate = pkgs.buildRustCrate.override {
-    defaultCrateOverrides = crateOverrides;
+, rustPlatform ? pkgs.makeRustPlatform {
     rustc = rustChannel.rust;
     cargo = rustChannel.cargo;
-  };
+  }
+, backendName ? builtins.readFile (runCommandLocal "backend-name"
+  { CARGO_TOML = builtins.readFile ../backend/Cargo.toml; } ''
+    echo "$CARGO_TOML" | sed -n -e 's/^name = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
+  '')
+, backendVersion ? builtins.readFile (runCommandLocal "backend-version"
+  { CARGO_TOML = builtins.readFile ../backend/Cargo.toml; } ''
+    echo "$CARGO_TOML" | sed -n -e 's/^version = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
+  '')
+, webappSrc ? callPackage ./source.nix {}
+, cargoSha256 ? "0rx4vwpxil152c819z81pjyz60hb50vlm2s57wlrfbl8biwrbjha"
+}:
 
-in (import ../Cargo.nix {
-  inherit pkgs lib stdenv;
-  inherit buildRustCrate;
-  defaultCrateOverrides = crateOverrides;
-  rootFeatures = [ "default" ];
-}).workspaceMembers.webapp-backend.build.overrideAttrs (attrs: {
+rustPlatform.buildRustPackage rec {
+  pname = backendName;
+  version = backendVersion;
+  src = webappSrc;
+  inherit cargoSha256;
+  nativeBuildInputs = with pkgs; [ pkg-config ];
+  buildInputs = with pkgs; [ openssl postgresql ];
+  cargoBuildFlags = [ "--package" "${pname}" ];
+  doCheck = false;
   postInstall = ''
-    cp -av tls $out
+    cp -LRv tls $out
     cp -v ${webappSrc}/Config.toml $out
   '';
-})
+}

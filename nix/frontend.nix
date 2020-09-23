@@ -1,7 +1,6 @@
 { nixpkgs ? <nixpkgs>
 , pkgs ? (import nixpkgs {})
 , stdenv ? pkgs.stdenv
-, lib ? stdenv.lib
 , runCommandLocal ? pkgs.runCommandLocal
 , callPackage ? pkgs.callPackage
 , moz_overlay ? (import (builtins.fetchTarball
@@ -10,40 +9,24 @@
 , date ? null
 , channel ? "nightly"
 , rustChannel ? moz_nixpkgs.rustChannelOf { inherit date channel; }
-, webappName ? builtins.readFile (runCommandLocal "project-name"
-  { CARGO_TOML = builtins.readFile ../Cargo.toml; } ''
+, frontendName ? builtins.readFile (runCommandLocal "frontend-name"
+  { CARGO_TOML = builtins.readFile ../frontend/Cargo.toml; } ''
     echo "$CARGO_TOML" | sed -n -e 's/^name = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
   '')
-, webappVersion ? builtins.readFile (runCommandLocal "project-version"
-  { CARGO_TOML = builtins.readFile ../Cargo.toml; } ''
+, frontendVersion ? builtins.readFile (runCommandLocal "frontend-version"
+  { CARGO_TOML = builtins.readFile ../frontend/Cargo.toml; } ''
     echo "$CARGO_TOML" | sed -n -e 's/^version = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
   '')
-, webappSrc ? callPackage ./source.nix { inherit webappName webappVersion; }
-, cargoSha256 ? "14zf6glm1p9mb1yvk314jw6g5prgsi460qsw1h6fpf81d5n1v1hw"
+, webappSrc ? callPackage ./source.nix {}
+, cargoSha256 ? "1jnf5vvipnpryx8vhf3n0wkyc089zrndf8bmcg471d125x5q2bim"
 , uikit ? callPackage ./uikit {}
 }:
 
 let
-  crateOverrides = pkgs.defaultCrateOverrides // {
-    sass-sys = attrs: {
-      buildInputs = with pkgs; [ git ];
-    };
-  };
-
-  buildRustCrate = pkgs.buildRustCrate.override {
-    defaultCrateOverrides = crateOverrides;
-    rustc = (rustChannel.rust.override {
-      targets = [ "wasm32-unknown-unknown" ];
-    });
-    cargo = rustChannel.cargo;
-  };
-
-  cargoDeps = pkgs.rustPlatform.fetchcargo {
-    name = webappName;
-    version = webappVersion;
+  cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
     src = webappSrc;
-    sha256 = cargoSha256;
     sourceRoot = null;
+    sha256 = cargoSha256;
   };
 
   fake-git-for-clone-uikit = pkgs.writeShellScriptBin "git" ''
@@ -53,14 +36,19 @@ let
     chmod -R +w $OUT_DIR
   '';
 
-in (import ../Cargo.nix {
-  inherit pkgs lib stdenv;
-  inherit buildRustCrate;
-  defaultCrateOverrides = crateOverrides;
-  rootFeatures = [ "default" ];
-}).workspaceMembers.webapp-frontend.build.overrideAttrs (attrs: {
-  buildInputs = attrs.buildInputs ++ [ fake-git-for-clone-uikit ]
-    ++ (with pkgs; [ cargo-web ]);
+in
+stdenv.mkDerivation {
+  pname = frontendName;
+  version = frontendVersion;
+  src = webappSrc;
+
+  nativeBuildInputs = [
+    (rustChannel.rust.override {
+      targets = [ "wasm32-unknown-unknown" ];
+    })
+    rustChannel.cargo
+  ] ++ (with pkgs; [ wasm-pack pkg-config binaryen]);
+  buildInputs = [ fake-git-for-clone-uikit ] ++ (with pkgs; [ openssl ]);
 
   buildCommand = ''
     export HOME=$(mktemp -d)
@@ -77,8 +65,10 @@ in (import ../Cargo.nix {
     substitute $config .cargo/config \
       --subst-var-by vendor "$(pwd)/$cargoDepsCopy"
 
-    cargo web deploy --release -o $out/static -p webapp-frontend --target wasm32-unknown-unknown
-
-    mkdir -p $lib
+    cd $NIX_BUILD_TOP/frontend
+    wasm-pack build --no-typescript --release --target web --out-dir $out/pkg
+    rm -rf build.rs Cargo.toml src
+    mkdir -p $out/static
+    cp -R . $out/static
   '';
-})
+}
