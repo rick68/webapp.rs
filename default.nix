@@ -26,13 +26,15 @@ let
   backend = import ./nix/backend.nix args;
 
   rollup = callPackage ./nix/rollup {};
+  terser = callPackage ./nix/terser {};
 
 in stdenv.mkDerivation {
   name = "${webappName}-${webappVersion}";
   version = webappVersion;
   src = webappSrc;
 
-  nativeBuildInputs = [ rollup ] ++ (with pkgs; [ binaryen makeWrapper ]);
+  nativeBuildInputs = [ rollup terser ] ++
+    (with pkgs; [ binaryen makeWrapper ]);
 
   buildCommand = ''
     mkdir $out
@@ -48,7 +50,13 @@ in stdenv.mkDerivation {
 
     mkdir -p $out/static/pkg
     wasm-opt -Oz -o $out/static/pkg/''${name}_bg.wasm ${frontend}/pkg/''${name}_bg.wasm
+
     cp -R {${frontend}/pkg,$src/frontend/main.js} .
     rollup ./main.js --format iife --file $out/static/pkg/$name.js
+
+    terser --compress --mangle \
+        -- $out/static/pkg/$name.js \
+        > $name.min.js
+    mv $name.min.js $out/static/pkg/$name.js
   '';
 }
