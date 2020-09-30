@@ -51,7 +51,7 @@ in stdenv.mkDerivation {
     mkdir -p $out/static/pkg
     wasm-opt -Oz -o $out/static/pkg/''${name}_bg.wasm ${frontend}/pkg/''${name}_bg.wasm
 
-    cp -R {${frontend}/pkg,$src/frontend/main.js} .
+    cp -R ${frontend}/pkg .
     rollup ./main.js --format iife --file $out/static/pkg/$name.js
 
     terser --compress --mangle \
