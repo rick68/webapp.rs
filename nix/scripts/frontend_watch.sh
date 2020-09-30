@@ -13,7 +13,7 @@ EXTENSIONS="toml rs"
 DELAY=1
 
 EXEC="/bin/sh -c"
-APP="$TOP_DIR/nix/scripts/frontend_build.sh"
+APP="$TOP_DIR/nix/scripts/frontend_build.sh && curl http://localhost:35729/changed?files=html"
 APP_ARGS=""
 
 ##
