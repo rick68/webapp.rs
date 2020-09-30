@@ -9,7 +9,7 @@ done
 
 WATCH_DIRS="$TOP_DIR/frontend"
 IGNORES="$TOP_DIR/frontend/pkg"
-EXTENSIONS="toml rs js html"
+EXTENSIONS="toml rs"
 DELAY=1
 
 EXEC="/bin/sh -c"
