@@ -7,8 +7,8 @@ while [ ! -f $TOP_DIR/Makefile ]; do
     TOP_DIR=$(dirname $TOP_DIR)
 done
 
-WATCH_DIRS="."
-IGNORES="pkg"
+WATCH_DIRS="$TOP_DIR/frontend"
+IGNORES="$TOP_DIR/frontend/pkg"
 EXTENSIONS="toml rs js html"
 DELAY=1
 
