@@ -6,6 +6,7 @@ require! {
   \gulp-clean-css : clean-CSS
   \gulp-concat : concat
   \gulp-exec : exec
+  \gulp-htmlmin : htmlmin
   \gulp-livescript
   \gulp-livereload : livereload
   \gulp-postcss : postcss
@@ -34,7 +35,20 @@ views = (cb) !->
     .pipe pug do
       doctype: \html
       pretty: false
+    .pipe htmlmin {
+      +collapseWhitespace
+      +removeComments
+    }
     .pipe dest options.paths.view
+    .pipe exec '../nix/scripts/frontend_build.sh', {
+      -continue-on-error
+      -pipe-stdout
+    }
+    .pipe exec.reporter {
+      +err
+      +stderr
+      +stdout
+    }
     .pipe livereload!
   cb!
 
