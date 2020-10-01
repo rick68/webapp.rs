@@ -2,7 +2,8 @@
 
 use anyhow::{format_err, Result};
 use log::{set_logger, set_max_level, Level, LevelFilter, Log, Metadata, Record};
-use stdweb::js;
+use wasm_bindgen::prelude::*;
+use web_sys::console;
 
 /// The public static logger instance
 static LOGGER: LogService = LogService;
@@ -41,19 +42,39 @@ impl Log for LogService {
             const NORMAL: &str = "font-weight: normal";
             match record.level() {
                 Level::Error => {
-                    js! { console.error(@{log_entry}, @{BOLD}, @{NORMAL}) }
+                    console::error_3(
+                        &JsValue::from_str(&log_entry),
+                        &JsValue::from_str(BOLD),
+                        &JsValue::from_str(NORMAL),
+                    );
                 }
                 Level::Warn => {
-                    js! { console.warn(@{log_entry}, @{BOLD}, @{NORMAL}) }
+                    console::warn_3(
+                        &JsValue::from_str(&log_entry),
+                        &JsValue::from_str(BOLD),
+                        &JsValue::from_str(NORMAL),
+                    );
                 }
                 Level::Info => {
-                    js! { console.log(@{log_entry}, @{BOLD}, @{NORMAL}) }
+                    console::log_3(
+                        &JsValue::from_str(&log_entry),
+                        &JsValue::from_str(BOLD),
+                        &JsValue::from_str(NORMAL),
+                    );
                 }
                 Level::Debug => {
-                    js! { console.debug(@{log_entry}, @{BOLD}, @{NORMAL}) }
+                    console::debug_3(
+                        &JsValue::from_str(&log_entry),
+                        &JsValue::from_str(BOLD),
+                        &JsValue::from_str(NORMAL),
+                    );
                 }
                 Level::Trace => {
-                    js! { console.debug(@{log_entry}, @{BOLD}, @{NORMAL}) }
+                    console::debug_3(
+                        &JsValue::from_str(&log_entry),
+                        &JsValue::from_str(BOLD),
+                        &JsValue::from_str(NORMAL),
+                    );
                 }
             }
         }

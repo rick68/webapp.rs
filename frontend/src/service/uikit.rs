@@ -1,7 +1,8 @@
 //! UIkit related helpers
 
+use serde_json;
 use std::fmt;
-use stdweb::js;
+use wasm_bindgen::{prelude::*, JsCast};
 
 /// The UIkit service
 pub struct UIkitService;
@@ -21,6 +22,12 @@ impl fmt::Display for NotificationStatus {
     }
 }
 
+#[wasm_bindgen]
+extern "C" {
+    #[ wasm_bindgen ( extends = :: js_sys :: Object , js_namespace = UIkit , js_name = notification ) ]
+    pub fn notification_with_options(options: &js_sys::Object);
+}
+
 impl UIkitService {
     /// Create a new UIkitService instance
     pub fn new() -> Self {
@@ -29,12 +36,14 @@ impl UIkitService {
 
     /// Create a new notification
     pub fn notify(&self, message: &str, status: &NotificationStatus) {
-        js! {
-            UIkit.notification({
-                message: @{message},
-                status: @{status.to_string()},
-                timeout: 3000,
-            });
-        };
+        notification_with_options(
+            JsValue::from_serde(&serde_json::json!({
+                "message": message,
+                "status": status.to_string(),
+                "timeout": 3000
+            }))
+            .unwrap()
+            .unchecked_ref(),
+        );
     }
 }

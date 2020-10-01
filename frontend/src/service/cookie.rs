@@ -1,8 +1,9 @@
 //! A cookie handling service to read and write cookies
 
 use anyhow::Result;
-use stdweb::{js, unstable::TryInto};
 use thiserror::Error;
+use wasm_bindgen::JsCast;
+use web_sys::{window, HtmlDocument};
 
 #[derive(Debug, Error)]
 pub enum CookieError {
@@ -26,8 +27,17 @@ impl CookieService {
 
     /// Retrieve a cookie for a given name
     pub fn get(&self, name: &str) -> Result<String> {
-        let cookie_strings = js! { return document.cookie.split(';') };
-        let cookies: Vec<String> = cookie_strings.try_into()?;
+        let cookies: Vec<String> = window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .dyn_into::<HtmlDocument>()
+            .unwrap()
+            .cookie()
+            .unwrap()
+            .split(';')
+            .map(|x| x.to_owned())
+            .collect();
         cookies
             .iter()
             .filter_map(|x| {
@@ -55,9 +65,18 @@ impl CookieService {
 
     /// Set a cookie for a given name, value and validity days
     fn set_expiring(&self, name: &str, value: &str, days: i32) {
-        js! {
-            document.cookie = @{name} + "=" + (@{value} || "") +
-                ";max-age=" + (@{days} * 24 * 60 * 60) + ";path=/";
-        }
+        window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .dyn_into::<HtmlDocument>()
+            .unwrap()
+            .set_cookie(&format!(
+                r#"{}="{}";max-age={};path=/"#,
+                name,
+                value,
+                days * 24 * 60 * 60
+            ))
+            .unwrap();
     }
 }
