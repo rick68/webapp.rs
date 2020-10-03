@@ -20,6 +20,7 @@
 , webappSrc ? callPackage ./source.nix {}
 , cargoSha256 ? "0zqw8pc05lhfzd8mn8476s8hk89w84rhg60cl9xikqpgysx7cgdv"
 , uikit ? callPackage ./uikit {}
+, onlyUseUIkit ? false
 }:
 
 let
@@ -37,7 +38,7 @@ let
   '';
 
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation ({
   pname = frontendName;
   version = frontendVersion;
   src = webappSrc;
@@ -63,7 +64,7 @@ stdenv.mkDerivation {
     mkdir .cargo
     config=${<nixpkgs/pkgs/build-support/rust/fetchcargo-default-config.toml>}
     substitute $config .cargo/config \
-      --subst-var-by vendor "$(pwd)/$cargoDepsCopy"
+        --subst-var-by vendor "$(pwd)/$cargoDepsCopy"
 
     cd $NIX_BUILD_TOP/frontend
     wasm-pack build --no-typescript --release --target web --out-dir $out/pkg
@@ -71,4 +72,7 @@ stdenv.mkDerivation {
     mkdir -p $out/static
     cp -R . $out/static
   '';
-}
+
+} // (stdenv.lib.optionalAttrs onlyUseUIkit {
+  FRONTEND_PREPARE_STYLE = true;
+}))
