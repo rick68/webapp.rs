@@ -16,7 +16,9 @@ const SCSS_FILE: &str = "style.scss";
 
 pub fn main() -> Result<()> {
     // Prepeare UIkit and build the complete style
-    prepare_style()?;
+    if let Ok(_) = env::var("FRONTEND_PREPARE_STYLE") {
+        prepare_style()?;
+    }
 
     // Prepare the API URL paths
     prepare_api()?;
