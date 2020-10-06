@@ -56,9 +56,11 @@ impl Handler<UpdateSession> for DatabaseExecutor {
     fn handle(&mut self, msg: UpdateSession, _: &mut Self::Context) -> Self::Result {
         // Update the session
         debug!("Updating session: {}", msg.old_token);
-        Ok(update(sessions.filter(token.eq(&msg.old_token)))
-            .set(token.eq(&msg.new_token))
-            .get_result::<Session>(&self.0.get()?)?)
+        Ok(
+            update(sessions.filter(token.eq(&msg.old_token[1..msg.old_token.len() - 1])))
+                .set(token.eq(&msg.new_token))
+                .get_result::<Session>(&self.0.get()?)?,
+        )
     }
 }
 
