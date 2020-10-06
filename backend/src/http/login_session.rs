@@ -21,7 +21,7 @@ pub async fn login_session(
 
     // Create a new token for the already given one
     debug!("Session token {} wants to be renewed", old_token);
-    let new_token = Token::verify(&old_token)?;
+    let new_token = Token::verify(&old_token[1..old_token.len() - 1])?;
 
     // Update the session in the database
     let result = database
