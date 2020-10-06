@@ -17,11 +17,11 @@ pub async fn login_session(
     payload: Json<LoginSession>,
     database: Data<Addr<DatabaseExecutor>>,
 ) -> Result<HttpResponse, Error> {
-    let old_token = payload.into_inner().0.token;
+    let old_token = payload.into_inner().0.token.trim_matches('"').to_owned();
 
     // Create a new token for the already given one
     debug!("Session token {} wants to be renewed", old_token);
-    let new_token = Token::verify(&old_token[1..old_token.len() - 1])?;
+    let new_token = Token::verify(&old_token)?;
 
     // Update the session in the database
     let result = database
