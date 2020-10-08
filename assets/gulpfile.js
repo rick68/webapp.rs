@@ -1,4 +1,4 @@
-var autoprefixer, spawn, del, gulp, series, parallel, src, dest, cleanCSS, concat, exec, gulpLivescript, livereload, postcss, pug, sass, gutil, options, postcssImport, postcssScss, tailwindcss, clean, gulpfile, views, css, livescript, watch;
+var autoprefixer, spawn, del, gulp, series, parallel, src, dest, cleanCSS, concat, exec, htmlmin, gulpLivescript, livereload, postcss, pug, sass, gutil, options, postcssImport, postcssScss, tailwindcss, clean, gulpfile, views, css, livescript, watch;
 autoprefixer = require('autoprefixer');
 spawn = require('child_process').spawn;
 del = require('del');
@@ -6,6 +6,7 @@ gulp = require('gulp'), series = gulp.series, parallel = gulp.parallel, src = gu
 cleanCSS = require('gulp-clean-css');
 concat = require('gulp-concat');
 exec = require('gulp-exec');
+htmlmin = require('gulp-htmlmin');
 gulpLivescript = require('gulp-livescript');
 livereload = require('gulp-livereload');
 postcss = require('gulp-postcss');
@@ -30,7 +31,17 @@ views = function(cb){
   src('*.pug').pipe(pug({
     doctype: 'html',
     pretty: false
-  })).pipe(dest(options.paths.view)).pipe(livereload());
+  })).pipe(htmlmin({
+    collapseWhitespace: true,
+    removeComments: true
+  })).pipe(dest(options.paths.view)).pipe(exec('../nix/scripts/frontend_build.sh', {
+    continueOnError: false,
+    pipeStdout: false
+  })).pipe(exec.reporter({
+    err: true,
+    stderr: true,
+    stdout: true
+  })).pipe(livereload());
   cb();
 };
 css = function(cb){
