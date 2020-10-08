@@ -87,10 +87,10 @@ dependencies = [
  "derive_more",
  "futures-core",
  "futures-util",
- "log",
- "mime",
- "mime_guess",
- "percent-encoding",
+ "log 0.4.11",
+ "mime 0.3.16",
+ "mime_guess 2.0.3",
+ "percent-encoding 2.1.0",
  "v_htmlescape",
 ]
 
@@ -336,7 +336,7 @@ dependencies = [
  "serde_urlencoded",
  "socket2",
  "time 0.2.22",
- "tinyvec",
+ "tinyvec 1.0.1",
  "url 2.1.1",
 ]
 
