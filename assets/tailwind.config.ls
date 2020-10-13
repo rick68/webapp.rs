@@ -8,6 +8,7 @@ module.exports = do
     +enabled
     -preserve-html-elements
     layers: <[base components utilities]>
+    mode: \all
     content:
       * options.paths.view + "/index.html"
       * options.paths.js + "/main.js"
@@ -2436,4 +2437,6 @@ module.exports = do
     transition-duration: <[responsive]>
     transition-delay: <[responsive]>
     animation: <[responsive]>
-  pulgins: []
+  pulgins: [
+    * require \@tailwindcss/typography
+  ]

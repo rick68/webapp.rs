@@ -6,6 +6,7 @@ module.exports = {
     enabled: true,
     preserveHtmlElements: false,
     layers: ['base', 'components', 'utilities'],
+    mode: 'all',
     content: [options.paths.view + "/index.html", options.paths.js + "/main.js"]
     /* These options are passed through directly to PurgeCSS */,
     options: {
@@ -127,5 +128,5 @@ module.exports = {
     transitionDelay: ['responsive'],
     animation: ['responsive']
   },
-  pulgins: []
+  pulgins: [require('@tailwindcss/typography')]
 };
