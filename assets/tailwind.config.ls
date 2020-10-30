@@ -17,7 +17,7 @@ module.exports = do
     options:
       whitelist: [
         ### LAYOUT - Container (force using)
-        #\container
+        \container
 
         ### LAYOUT - Box Sizing
         #\box-border
@@ -27,7 +27,7 @@ module.exports = do
         #\block
         #\inline-block
         #\inline
-        #\flex
+        \flex
         #\inline-flex
         #\table
         #\table-caption
@@ -338,7 +338,7 @@ module.exports = do
         ### BOX ALIGNMENT - Justify Content
         #\justify-start
         #\justify-end
-        #\justify-center
+        \justify-center
         #\justify-between
         #\justify-around
         #\justify-evenly
@@ -368,7 +368,7 @@ module.exports = do
         ### BOX ALIGNMENT - Align Items
         #\items-start
         #\items-end
-        #\items-center
+        \items-center
         #\items-baseline
         #\items-stretch
 
@@ -405,12 +405,12 @@ module.exports = do
         ### SPACING - Padding
         #\p-0
         #\p-1
-        #\p-2
+        \p-2
         #\p-3
         #\p-4
         #\p-5
         #\p-6
-        #\p-8
+        \p-8
         #\p-10
         #\p-12
         #\p-16
@@ -426,7 +426,7 @@ module.exports = do
         #\px-0
         #\py-1
         #\px-1
-        #\py-2
+        \py-2
         #\px-2
         #\py-3
         #\px-3
@@ -437,7 +437,7 @@ module.exports = do
         #\py-6
         #\px-6
         #\py-8
-        #\px-8
+        \px-8
         #\py-10
         #\px-10
         #\py-12
@@ -611,7 +611,7 @@ module.exports = do
         #\my-64
         #\mx-64
         #\my-auto
-        #\mx-auto
+        \mx-auto
         #\my-px
         #\mx-px
         #\-my-1
@@ -670,7 +670,7 @@ module.exports = do
         #\ml-4
         #\mt-5
         #\mr-5
-        #\mb-5
+        \mb-5
         #\ml-5
         #\mt-6
         #\mr-6
@@ -905,7 +905,7 @@ module.exports = do
         #\w-2/3
         #\w-1/4
         #\w-2/4
-        #\w-3/4
+        \w-3/4
         #\w-1/5
         #\w-2/5
         #\w-3/5
@@ -926,7 +926,7 @@ module.exports = do
         #\w-9/12
         #\w-10/12
         #\w-11/12
-        #\w-full
+        \w-full
         #\w-screen
 
         ### SIZING - Min-Width
@@ -936,7 +936,7 @@ module.exports = do
         ### SIZING - Max-Width
         #\max-w-none
         #\max-w-xs
-        #\max-w-sm
+        \max-w-sm
         #\max-w-md
         #\max-w-lg
         #\max-w-xl
@@ -971,8 +971,8 @@ module.exports = do
         #\h-56
         #\h-64
         #\h-auto
-        #\h-full
-        #\h-screen
+        \h-full
+        \h-screen
 
         ### SIZING - Min-Height
         #\min-h-0
@@ -990,11 +990,11 @@ module.exports = do
 
         ### TYPOGRAPHY - Font Size
         #\text-xs
-        #\text-sm
+        \text-sm
         #\text-base
         #\text-lg
         #\text-xl
-        #\text-2xl
+        \text-2xl
         #\text-3xl
         #\text-4xl
         #\text-5xl
@@ -1012,7 +1012,7 @@ module.exports = do
         #\font-hairline
         #\font-thin
         #\font-light
-        #\font-normal
+        \font-normal
         #\font-medium
         #\font-semibold
         #\font-bold
@@ -1176,14 +1176,14 @@ module.exports = do
         #\text-transparent
         #\text-current
         #\text-black
-        #\text-white
+        \text-white
         #\text-gray-100
         #\text-gray-200
         #\text-gray-300
         #\text-gray-400
-        #\text-gray-500
+        \text-gray-500
         #\text-gray-600
-        #\text-gray-700
+        \text-gray-700
         #\text-gray-800
         #\text-gray-900
         #\text-red-100
@@ -1281,7 +1281,7 @@ module.exports = do
         #\no-underline
 
         ### TYPOGRAPHY - Text Transform
-        #\uppercase
+        \uppercase
         #\lowercase
         #\capitalize
         #\normal-case
@@ -1322,7 +1322,7 @@ module.exports = do
         #\bg-transparent
         #\bg-current
         #\bg-black
-        #\bg-white
+        \bg-white
         #\bg-gray-100
         #\bg-gray-200
         #\bg-gray-300
@@ -1381,7 +1381,7 @@ module.exports = do
         #\bg-blue-200
         #\bg-blue-300
         #\bg-blue-400
-        #\bg-blue-500
+        \bg-blue-500
         #\bg-blue-600
         #\bg-blue-700
         #\bg-blue-800
@@ -1801,7 +1801,7 @@ module.exports = do
         #\border-2
         #\border-4
         #\border-8
-        #\border
+        \border
         #\border-t-0
         #\border-r-0
         #\boredr-b-0
@@ -1830,9 +1830,10 @@ module.exports = do
         #\border-white
         #\border-gray-100
         #\border-gray-200
-        #\border-gray-300
+        \border-gray-300
         #\border-gray-400
-        #\border-gray-500
+        \border-gray-500
+        \hover:border-gray-500
         #\border-gray-600
         #\border-gray-700
         #\border-gray-800
@@ -1841,7 +1842,7 @@ module.exports = do
         #\border-red-200
         #\border-red-300
         #\border-red-400
-        #\border-red-500
+        \border-red-500
         #\border-red-600
         #\border-red-700
         #\border-red-800
@@ -1885,7 +1886,7 @@ module.exports = do
         #\border-blue-100
         #\border-blue-200
         #\border-blue-300
-        #\border-blue-400
+        \border-blue-400
         #\border-blue-500
         #\border-blue-600
         #\border-blue-700
@@ -2070,7 +2071,7 @@ module.exports = do
         #\shadow-sm
         #\shadow
         #\shadow-md
-        #\shadow-lg
+        \shadow-lg
         #\shadow-xl
         #\shadow-2xl
         #\shadow-inner
@@ -2290,7 +2291,7 @@ module.exports = do
         #\cursor-not-allowed
 
         ### INTERACTIVITY - Outline
-        #\outline-none
+        \outline-none
 
         ### INTERACTIVITY - Pointer Events
         #\pointer-events-none

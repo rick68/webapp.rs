@@ -150,27 +150,33 @@ impl Component for LoginComponent {
             .component_link
             .callback(|e: InputData| Message::UpdatePassword(e.value));
         html! {
-            <div class="uk-card uk-card-default uk-card-body uk-width-1-3@s uk-position-center",>
-                <h1 class="uk-card-title",>{TEXT_LOGIN}</h1>
-                <> // <form>
-                    <fieldset class="uk-fieldset",>
-                        <input class="uk-input uk-margin",
+            <div class="bg-white h-screen",>
+                <div class="container mx-auto h-full flex justify-center items-center",>
+                    <div class="w-3/4 shadow-lg p-8",>
+                        <h1 class="font-normal text-2xl text-gray-700 mb-5",>{TEXT_LOGIN}</h1>
+                        <input class="w-full focus:outline-none border border-gray-300 focus:border-blue-400 text-gray-700 p-2 mb-5",
                             placeholder=INPUT_USERNAME,
                             disabled=self.inputs_disabled,
                             value=&self.username,
                             oninput=oninput_username />
-                        <input class="uk-input uk-margin-bottom",
+                        <input class="w-full focus:outline-none border border-gray-300 focus:border-blue-400 text-gray-700 p-2 mb-5",
                             type="password",
                             placeholder=INPUT_PASSWORD,
                             disabled=self.inputs_disabled,
                             value=&self.password,
                             oninput=oninput_password />
-                        <button class="uk-button uk-button-primary",
+                        <button class=&format!("max-w-sm focus:outline-none border text-sm uppercase px-8 py-2 {}",
+                            if self.login_button_disabled {
+                                " text-gray-500"
+                            }
+                            else {
+                                "bg-blue-500 text-white"
+                            }),
                             type="submit",
                             disabled=self.login_button_disabled,
                             onclick=onclick>{TEXT_LOGIN}</button>
-                    </fieldset>
-                </> // </form>
+                    </div>
+                </div>
             </div>
         }
     }

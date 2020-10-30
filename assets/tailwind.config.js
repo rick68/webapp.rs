@@ -10,7 +10,7 @@ module.exports = {
     content: [options.paths.view + "/index.html", options.paths.js + "/main.js"]
     /* These options are passed through directly to PurgeCSS */,
     options: {
-      whitelist: []
+      whitelist: ['container', 'flex', 'justify-center', 'items-center', 'p-2', 'p-8', 'py-2', 'px-8', 'mx-auto', 'mb-5', 'w-3/4', 'w-full', 'max-w-sm', 'h-full', 'h-screen', 'text-sm', 'text-2xl', 'font-normal', 'text-white', 'text-gray-500', 'text-gray-700', 'uppercase', 'bg-white', 'bg-blue-500', 'border', 'border-gray-300', 'border-gray-500', 'hover:border-gray-500', 'border-red-500', 'border-blue-400', 'shadow-lg', 'outline-none']
     }
   },
   theme: {
