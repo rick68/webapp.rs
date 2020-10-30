@@ -7,7 +7,7 @@
   "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz"))
 , moz_nixpkgs ? (import nixpkgs { overlays = [ moz_overlay ]; })
 , date ? null
-, channel ? "nightly"
+, channel ? "stable"
 , rustChannel ? moz_nixpkgs.rustChannelOf { inherit date channel; }
 , frontendName ? builtins.readFile (runCommandLocal "frontend-name"
   { CARGO_TOML = builtins.readFile ../frontend/Cargo.toml; } ''
@@ -18,7 +18,7 @@
     echo "$CARGO_TOML" | sed -n -e 's/^version = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
   '')
 , webappSrc ? callPackage ./source.nix {}
-, cargoSha256 ? "06zj7gm2f7y248l0p1d64nxrn0k6bmqqzpdfif3bryb7hkg2gsqn"
+, cargoSha256 ? "01m3zhf45gws9lnifdwvcyy7hqy4xpvfrx5f0zxxp5477dnxbfsy"
 , uikit ? callPackage ./uikit {}
 , onlyUseUIkit ? false
 }:

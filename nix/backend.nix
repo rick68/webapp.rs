@@ -6,7 +6,7 @@
   "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz"))
 , moz_nixpkgs ? (import nixpkgs { overlays = [ moz_overlay ]; })
 , date ? null
-, channel ? "nightly"
+, channel ? "stable"
 , rustChannel ? moz_nixpkgs.rustChannelOf { inherit date channel; }
 , rustPlatform ? pkgs.makeRustPlatform {
     rustc = rustChannel.rust;
@@ -21,7 +21,7 @@
     echo "$CARGO_TOML" | sed -n -e 's/^version = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
   '')
 , webappSrc ? callPackage ./source.nix {}
-, cargoSha256 ? "1zwnazykvxw8dyl7nvil8zmbdq2da1sn23kmlbml9w2qzq185pqn"
+, cargoSha256 ? "10c9rnh4r08ciwrf2j1y1cm4q7ybh5mcvikr2c3mrg4n1hx3nixh"
 }:
 
 rustPlatform.buildRustPackage rec {
