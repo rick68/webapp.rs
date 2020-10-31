@@ -80,7 +80,7 @@ fn prepare_style() -> Result<()> {
 
 fn prepare_api() -> Result<()> {
     let config = Config::from_file(&format!("../{}", CONFIG_FILENAME))?;
-    let url = Url::parse(&config.server.url)?;
+    let url = Url::parse(&config.webapp.server_url)?;
     println!("cargo:rustc-env=API_URL={}", url);
     Ok(())
 }

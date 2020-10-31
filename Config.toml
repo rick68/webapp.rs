@@ -7,6 +7,9 @@ redirect-from = [
     "https://127.0.0.1:30082",
 ]
 
+[webapp]
+server-url = "http://127.0.0.1:30080"
+
 [log]
 actix-web = "debug"
 webapp = "trace"

@@ -9,6 +9,9 @@ pub struct Config {
     /// The server configuration
     pub server: ServerConfig,
 
+    /// The webapp configuration
+    pub webapp: WebAppConfig,
+
     /// The logger configuration
     pub log: LogConfig,
 
@@ -40,6 +43,14 @@ pub struct ServerConfig {
 
     /// The redirecting URLs
     pub redirect_from: Vec<String>,
+}
+
+#[derive(Clone, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+/// The WebApp configuration
+pub struct WebAppConfig {
+    /// The full server URL
+    pub server_url: String,
 }
 
 #[derive(Clone, Deserialize)]
