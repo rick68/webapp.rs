@@ -139,7 +139,7 @@ impl Component for ContentComponent {
                     <div class="w-1/4 shadow-lg p-8",>
                         <h1 class="font-normal text-2xl text-gray-700 mb-5",>{TEXT_CONTENT}</h1>
                         <button disabled=self.logout_button_disabled,
-                            class="max-w-ms border hover:border-gray-500 text-sm uppercase px-8 py-2",
+                            class="max-w-ms focus:outline-none border border-gray-300 hover:border-gray-500 active:border-gray-600 text-sm uppercase px-8 py-2",
                             onclick=onclick>{TEXT_LOGOUT}</button>
                     </div>
                 </div>

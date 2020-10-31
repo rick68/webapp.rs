@@ -1832,9 +1832,10 @@ module.exports = do
         #\border-gray-200
         \border-gray-300
         #\border-gray-400
-        \border-gray-500
+        #\border-gray-500
         \hover:border-gray-500
         #\border-gray-600
+        \active:border-gray-600
         #\border-gray-700
         #\border-gray-800
         #\border-gray-900
@@ -1886,7 +1887,8 @@ module.exports = do
         #\border-blue-100
         #\border-blue-200
         #\border-blue-300
-        \border-blue-400
+        #\border-blue-400
+        \focus:border-blue-400
         #\border-blue-500
         #\border-blue-600
         #\border-blue-700
@@ -2291,7 +2293,8 @@ module.exports = do
         #\cursor-not-allowed
 
         ### INTERACTIVITY - Outline
-        \outline-none
+        #\outline-none
+        \focus:outline-none
 
         ### INTERACTIVITY - Pointer Events
         #\pointer-events-none
@@ -2343,7 +2346,7 @@ module.exports = do
     background-repeat: <[responsive]>
     background-size: <[responsive]>
     border-collapse: <[responsive]>
-    border-color: <[responsive hover focus]>
+    border-color: <[responsive hover focus ]> ++ <[active]>
     border-opacity: <[responsive hover focus]>
     border-radius: <[responsive]>
     border-style: <[responsive]>
