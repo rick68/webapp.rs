@@ -21,7 +21,7 @@
     echo "$CARGO_TOML" | sed -n -e 's/^version = "\(.*\)"$/\1/p' | head -1 | tr -d '\n' > $out
   '')
 , webappSrc ? callPackage ./source.nix {}
-, cargoSha256 ? "10c9rnh4r08ciwrf2j1y1cm4q7ybh5mcvikr2c3mrg4n1hx3nixh"
+, cargoSha256 ? "1ibs3kc12s15n602bg329r7vshbjv24j3dh9f8apk05q75ivinac"
 }:
 
 rustPlatform.buildRustPackage rec {
